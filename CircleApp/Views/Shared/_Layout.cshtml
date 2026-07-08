@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
     <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
 
     <link rel="stylesheet" href="~/CircleApp.styles.css" asp-append-version="true" />
@@ -21,13 +23,13 @@
 
 
         @* topbar *@
-       <partial name="Navigation/_TopBar"/>
-        
+        <partial name="Navigation/_TopBar" />
+
         @* Side bar left *@
         <partial name="Navigation/_SideBar" />
 
 
-    @RenderBody()
+        @RenderBody()
     </div>
 
 
