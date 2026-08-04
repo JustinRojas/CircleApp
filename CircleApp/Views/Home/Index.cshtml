@@ -160,7 +160,7 @@
                             </div>
                         </div>
 
-                                    @* div para los comentarios *@
+                        @* div para los comentarios *@
                         <div class="flex items-center gap-3">
                             <a class="button-icon">
                                 <ion-icon class="text-lg" name="chatbubble-ellipses-outline"></ion-icon>
@@ -178,7 +178,7 @@
                         </div>
                     </div>
 
-                                    @* Add comment section *@
+                    @* Add comment section *@
 
                     <div>
 
@@ -188,7 +188,7 @@
                             <div class="flex-1 relative overflow-hidden h-10 ">
                                 <textarea placeholder="Add comment... " rows="1" class=" overflow-hidden text-dark w-full resize-none !bg-transparent px-4 py-2 focus:!border-transparent focus:!ring-transparent"></textarea>
                             </div>
-                            <button class="text-sm rounded-full py-1.5 px-3.5 bg-secondary"> 
+                            <button class="text-sm rounded-full py-1.5 px-3.5 bg-secondary">
                                 Comment
                             </button>
                         </div>
@@ -198,7 +198,7 @@
 
 
 
-                        @*      <div id="posts-container" class="space-y-4">
+                    @*      <div id="posts-container" class="space-y-4">
 
 
                     @if (posts == 0)
@@ -224,12 +224,29 @@
                 </div>
 
 
+
             </div>
 
-            <div class="flex-1"> </div>
 
-            </di>
 
+        </div>
+
+
+        <div class="flex-1">
+            <div class="lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6">
+
+                <div class="box p-5 px-6">
+                    <partial name="Sidebar/_SuggestedFriends">
+                    </partial>
+                </div>
+
+                <div class="box p-5 px-6 border1">
+                    <partial name="Sidebar/_TrendsForYou">
+                    </partial>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 <partial name="Modals/_CreateStory"> </partial>
