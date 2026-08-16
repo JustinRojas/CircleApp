@@ -14,5 +14,11 @@ namespace CircleApp.Data.Models
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
        // public bool IsDeleted { get; set; }
+
+        //Foreign key
+        public int UserId { get; set; } 
+
+        //Navigation properties
+        public User User { get; set; }
     }
 }
