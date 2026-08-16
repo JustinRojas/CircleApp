@@ -1,3 +1,4 @@
+
 using CircleApp.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,7 @@ builder.Services.AddControllersWithViews();
 
 
 //Database Configuration
-string dbConnectionString = builder.Configuration.GetConnectionString("Default");
+string dbConnectionString = builder.Configuration.GetConnectionString("Default") ?? "";
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(dbConnectionString));
 
