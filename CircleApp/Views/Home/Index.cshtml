@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Post>
+
+@{
     int posts = 0;
 }
 
@@ -76,129 +78,137 @@
 
                 </div>
 
-                @* When there are not posts *@
-                <div class=" bg-white rounded-xl shadow-sm md:p-4  p-2 space-y-4 text-sm font-mediun border1 "
-                     style=" width: 588px;">
+                @if (Model.Count == 0)
+                {
+                    @* When there are not posts *@
+                    <div class=" bg-white rounded-xl shadow-sm md:p-4  p-2 space-y-4 text-sm font-mediun border1 "
+                         style=" width: 588px;">
 
-                    Currently, there are no posts available. Would you like to create the first one?
-                </div>
+                        Currently, there are no posts available. Would you like to create the first one?
+                    </div>
+                }
 
-                @* When there are posts *@
-                <div class="bg-white rounded-xl shadow-sm p-2 text-sm font-mediun border1 ">
+                @foreach (var post in Model)
+                {
+                    @* When there are posts *@
+                    <div class="bg-white rounded-xl shadow-sm p-2 text-sm font-mediun border1 ">
 
-                    @* Post heading *@
-                    <div class="flex gap-3 sm:p-4 p-2.5 text-sm font-medium">
-                        <a asp-controller="" asp-action="" asp-route-userId="">
-                            <img src="~/images/avatar/user.png" class="w-9 h-9 rounded-full" />
-                        </a>
-                        <div class="flex-1">
-                            <a @* asp-controller="Users" asp-action="Details" asp-route-userId="@Model.UserId" *@>
-                                <h4 class="text-black">jeaustin</h4>
-                                <div class="text-xs text-gray-500/80" title=""> 1 day ago </div>
+                        @* Post heading *@
+                        <div class="flex gap-3 sm:p-4 p-2.5 text-sm font-medium">
+                            <a asp-controller="" asp-action="" asp-route-userId="">
+                                <img src="@(post.User.ProfilePictureUrl ?? "~/images/avatar/user.png")" class="w-9 h-9 rounded-full" />
                             </a>
+                            <div class="flex-1">
+                                <a @* asp-controller="Users" asp-action="Details" asp-route-userId="@Model.UserId" *@>
+                                    <h4 class="text-black">@post.User.FullName</h4>
+                                    <div class="text-xs text-gray-500/80" title=""> @post.DateCreated.ToString("MM/dd/yyyy HH:mm"); </div>
+                                </a>
+                            </div>
+
+                            <div class="-mr-1">
+                                <button type="button" class="button-icon w-8 h-8"> <ion-icon class="text-xl" name="ellipsis-horizontal"></ion-icon> </button>
+                                <div class="w-[245px] post-options-dropdown" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+
+                                    <form>
+                                        <button type="submit" class="hover:!bg-red-50  icon-link">
+                                            <ion-icon class="text-xl shrink-0" name="flag-outline"> </ion-icon> Report
+                                        </button>
+                                    </form>
+
+                                    <hr />
+
+                                    <form>
+                                        <button type="submit" class="hover:!bg-red-50  icon-link">
+                                            <ion-icon class="text-xl shrink-0" name="lock-closed-outline"> </ion-icon> Set as private
+                                        </button>
+                                    </form>
+
+                                    <form>
+                                        <button type="submit" class="hover:!bg-red-50  icon-link">
+                                            <ion-icon class="text-xl shrink-0" name="trash-bin-outline"> </ion-icon> Delete post
+                                        </button>
+                                    </form>
+
+
+
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="-mr-1">
-                            <button type="button" class="button-icon w-8 h-8"> <ion-icon class="text-xl" name="ellipsis-horizontal"></ion-icon> </button>
-                            <div class="w-[245px] post-options-dropdown" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
+                        @* Post content *@
+                        <a asp-controller="" asp-action="" asp-route-postId="">
+                            <div class="sm:px-4 p-2.5 pt-0 w-full">
+                                <p class="font-normal">
+                                    @post.Content.ToString();
+                                </p>
+                            </div>
+                        </a>
 
-                                <form>
-                                    <button type="submit" class="hover:!bg-red-50  icon-link">
-                                        <ion-icon class="text-xl shrink-0" name="flag-outline"> </ion-icon> Report
-                                    </button>
-                                </form>
-
-                                <hr />
-
-                                <form>
-                                    <button type="submit" class="hover:!bg-red-50  icon-link">
-                                        <ion-icon class="text-xl shrink-0" name="lock-closed-outline"> </ion-icon> Set as private
-                                    </button>
-                                </form>
-
-                                <form>
-                                    <button type="submit" class="hover:!bg-red-50  icon-link">
-                                        <ion-icon class="text-xl shrink-0" name="trash-bin-outline"> </ion-icon> Delete post
-                                    </button>
-                                </form>
+                        @if (!string.IsNullOrEmpty(post.ImageUrl))
+                        {
+                            @*  Imagen del post *@
+                            <a>
+                                <div class="relative w-full lg:h-96 h-full sm:px-4">
+                                    <img src="@post.ImageUrl" class="sm:rounded-lg w-full h-full object-cover" />
+                                </div>
+                            </a>
+                        }
 
 
+                        @* Icon *@
+                        <div class="sm:p-4 p-2.5 flex items-center gap-4 text-xs font-semibold">
+
+                            <div>
+                                @* div para los likes *@
+                                <div class="flex items-center gap-2.5">
+
+                                    <a class="button-icon text-red-500 bg-red-100">
+                                        <ion-icon class="text-lg" name="heart"> </ion-icon>
+                                    </a>
+                                    <a href="#">21</a>
+                                </div>
+                            </div>
+
+                            @* div para los comentarios *@
+                            <div class="flex items-center gap-3">
+                                <a class="button-icon">
+                                    <ion-icon class="text-lg" name="chatbubble-ellipses-outline"></ion-icon>
+                                </a>
+                                <a href="#">5</a>
+                            </div>
+
+                            <div class="ml-auto"></div>
+
+                            <div class="flex items-center gap-2">
+                                <a class="button-icon">
+                                    <ion-icon class="text-lg" name="bookmark-outline"></ion-icon>
+                                </a>
 
                             </div>
                         </div>
 
-                    </div>
-
-                    @* Post content *@
-                    <a asp-controller="" asp-action="" asp-route-postId="">
-                        <div class="sm:px-4 p-2.5 pt-0 w-full">
-                            <p class="font-normal">
-                                This is my first status from the #CircleApp where you can share text and pictures
-                                with your family or friends
-                            </p>
-                        </div>
-                    </a>
-
-                    @*  Imagen del post *@
-                    <a>
-                        <div class="relative w-full lg:h-96 h-full sm:px-4">
-                            <img src="~/images/placeholders/post-placeholder.jpg" class="sm:rounded-lg w-full h-full object-cover" />
-                        </div>
-                    </a>
-
-                    @* Icon *@
-                    <div class="sm:p-4 p-2.5 flex items-center gap-4 text-xs font-semibold">
+                        @* Add comment section *@
 
                         <div>
-                            @* div para los likes *@
-                            <div class="flex items-center gap-2.5">
 
-                                <a class="button-icon text-red-500 bg-red-100">
-                                    <ion-icon class="text-lg" name="heart"> </ion-icon>
-                                </a>
-                                <a href="#">21</a>
+                            <div class="sm:px-4 sm:py-3 p-2.5 border-t border-gray-100  gap-1 flex items-center">
+                                <img src="~/images/avatar/user.png" class="w-6 h-6 mt-1 rounded-full" />
+
+                                <div class="flex-1 relative overflow-hidden h-10 ">
+                                    <textarea placeholder="Add comment... " rows="1" class=" overflow-hidden text-dark w-full resize-none !bg-transparent px-4 py-2 focus:!border-transparent focus:!ring-transparent"></textarea>
+                                </div>
+                                <button class="text-sm rounded-full py-1.5 px-3.5 bg-secondary">
+                                    Comment
+                                </button>
                             </div>
-                        </div>
 
-                        @* div para los comentarios *@
-                        <div class="flex items-center gap-3">
-                            <a class="button-icon">
-                                <ion-icon class="text-lg" name="chatbubble-ellipses-outline"></ion-icon>
-                            </a>
-                            <a href="#">5</a>
-                        </div>
 
-                        <div class="ml-auto"></div>
-
-                        <div class="flex items-center gap-2">
-                            <a class="button-icon">
-                                <ion-icon class="text-lg" name="bookmark-outline"></ion-icon>
-                            </a>
-
-                        </div>
-                    </div>
-
-                    @* Add comment section *@
-
-                    <div>
-
-                        <div class="sm:px-4 sm:py-3 p-2.5 border-t border-gray-100  gap-1 flex items-center">
-                            <img src="~/images/avatar/user.png" class="w-6 h-6 mt-1 rounded-full" />
-
-                            <div class="flex-1 relative overflow-hidden h-10 ">
-                                <textarea placeholder="Add comment... " rows="1" class=" overflow-hidden text-dark w-full resize-none !bg-transparent px-4 py-2 focus:!border-transparent focus:!ring-transparent"></textarea>
-                            </div>
-                            <button class="text-sm rounded-full py-1.5 px-3.5 bg-secondary">
-                                Comment
-                            </button>
                         </div>
 
 
-                    </div>
 
-
-
-                    @*      <div id="posts-container" class="space-y-4">
+                        @*      <div id="posts-container" class="space-y-4">
 
 
                     @if (posts == 0)
@@ -221,7 +231,9 @@
                     </div> *@
 
 
-                </div>
+                    </div>
+
+                }
 
 
 

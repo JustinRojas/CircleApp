@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CircleApp;
 
 namespace CircleApp.Data.Helpers
 {
@@ -40,7 +41,7 @@ namespace CircleApp.Data.Helpers
                 var newPostWithImage = new Post()
                 {
                     Content = "This is going to be  our firts post which is being loaded from the database and it has been created using our test user. This post has a image.",
-                    ImageUrl = "https://unsplash.com/photos/foggy-mountain-summit-1Z2niiBPg5A",
+                    ImageUrl = "~/images/Promo 1.png",
                     NrOfReports = 0,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow,
