@@ -1,5 +1,7 @@
 
+using CircleApp.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace CircleApp.Controllers
@@ -7,15 +9,20 @@ namespace CircleApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly AppDbContext _appDbContext;
+        public HomeController(ILogger<HomeController> logger, AppDbContext appDbContext)
         {
             _logger = logger;
+            _appDbContext = appDbContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var allPosts = await _appDbContext.Posts
+                .Include(u => u.User)
+                .ToListAsync();
+
+            return View(allPosts);
         }
 
         
